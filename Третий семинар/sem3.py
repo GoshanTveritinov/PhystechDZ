@@ -1,2 +1,4 @@
-for i in range (0, int(3.4)+1):
-    print(i)
+import numpy as np
+
+a = np.pi
+print(round(a, 4))

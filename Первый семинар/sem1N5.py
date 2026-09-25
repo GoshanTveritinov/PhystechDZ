@@ -11,4 +11,5 @@ while(val>0):
     res += str(val%c)
     val = val // c
 
+
 print(res[::-1])

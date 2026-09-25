@@ -1,4 +1,4 @@
-with open(r'C:\Users\Георгий\Desktop\MIPT\Второй семинар\input.txt', 'r') as f:
+with open(r'C:\Users\Георгий\Desktop\MIPT\Второй семинар\sem2N9\input.txt', 'r') as f:
     prepinanie = {'! ', '? ', '. '} 
     text = f.read()
     
@@ -11,8 +11,3 @@ with open(r'C:\Users\Георгий\Desktop\MIPT\Второй семинар\inp
     #    print(sentences)
 
     print(count+1)
-
-
-
-
-
