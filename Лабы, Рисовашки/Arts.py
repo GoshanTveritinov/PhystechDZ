@@ -142,4 +142,4 @@ plt.legend(loc='lower right')
 
 plt.show()
 # Сохраняем изображение в текущую директорию
-plt.savefig('example.png')
+# plt.savefig('example.png')
