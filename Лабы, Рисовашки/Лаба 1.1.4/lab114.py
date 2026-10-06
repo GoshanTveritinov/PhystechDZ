@@ -28,13 +28,27 @@ def sigma(ln, srn, t):
     return sign, sintn
 
 
-#Постройка частот Пуассона при найденных матожидании и ср_квад_отклонении
-def W(r, srn):
+#Постройка частот Пуассона при найденном матожидании
+def PuasSr(r, srn):
     wn = []
     for i in r:
         wn += [(srn**i) * np.exp(-srn) / factorial(i)]
     return wn
 
+def PuasDes(r, sign):
+    wn = []
+    srn = sign**2
+    for i in r:
+        wn += [(srn**i) * np.exp(-srn) / factorial(i)]
+    return wn
+
+
+def Gauss(r, srn, sign):
+    wn = []
+    for i in r:
+        f = np.exp( -(i - srn )**2 / (2*sign**2) ) / (sign * (2*3.1415)**0.5 )
+        wn += [f]
+    return(wn)
 
 #4 графика на одном листе
 sizes = np.array([[0.25, 0.14], [0.12, 0.07]])
@@ -57,7 +71,9 @@ for i in range(2):
      
 
         n, bins, patches = axes[i, j].hist(l80, 30, density=True, facecolor='blue', edgecolor='black', alpha=0.75)
-        axes[i, j].plot([i for i in range(130)], W([i for i in range(130)], sr80), color='red', linewidth=2)
+        axes[i, j].plot([i for i in range(200)], PuasSr([i for i in range(200)], sr80), color='red', linewidth=2, linestyle = '-')
+        axes[i, j].plot([i for i in range(200)], PuasDes([i for i in range(200)], sig80), color='magenta', linewidth=2, linestyle = '--')
+        axes[i, j].plot([i for i in range(200)], Gauss([i for i in range(200)], sr80, sig80), color='cyan', linewidth=3, linestyle = ':')
         axes[i, j].grid(True)
         axes[i, j].axis([np.min(l80)-10, np.max(l80)+10, 0, sizes[i][j] ])
         axes[i, j].set_xlabel('Число отсчетов, шт.')
@@ -75,7 +91,7 @@ for i in range(2):
         sr80 = np.sum(l80)/len(l80)
 
         n, bins, patches = plt.hist(l80, 30, density=True, facecolor=colors[i][j], edgecolor='black', alpha=0.75)
-        plt.plot([i for i in range(130)], W([i for i in range(130)], sr80), color='red', linewidth=3)
+        plt.plot([i for i in range(130)], PuasSr([i for i in range(130)], sr80), color='red', linewidth=3)
         plt.xlabel('Число отсчетов, шт.')
         plt.ylabel('Вероятность события')
         plt.title('Распределение числа отсчетов при различных t.')
