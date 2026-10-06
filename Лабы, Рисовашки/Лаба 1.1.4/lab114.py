@@ -51,12 +51,15 @@ def Gauss(r, srn, sign):
     return(wn)
 
 #4 графика на одном листе
-sizes = np.array([[0.25, 0.14], [0.12, 0.07]])
-fig, axes = plt.subplots(nrows = 2, ncols = 2, figsize=(8, 8))
+sizes = np.array([[0.14, 0.12], [0.12, 0.08]])
+
+fig, axes = plt.subplots(nrows = 2, ncols = 2, figsize=(14, 8))
 plt.subplots_adjust(wspace=0.5, hspace=0.5)
 for i in range(2):
     for j in range(2):
         l80 = hoba(t[i][j])
+        luniq = set(l80)
+        s = len(luniq)
         sr80 = np.sum(l80)/len(l80)
         int80 = sr80/t[i][j]
         sig80, sint80 = sigma(l80, sr80, t[i][j]) 
@@ -68,14 +71,16 @@ for i in range(2):
         print("Средняя интенсивность:", int80)
         print("Среднее отклонение (погрешность) интенсивности:", round(sint80, 4))
         print()
+
+        
      
 
-        n, bins, patches = axes[i, j].hist(l80, 30, density=True, facecolor='blue', edgecolor='black', alpha=0.75)
-        axes[i, j].plot([i for i in range(200)], PuasSr([i for i in range(200)], sr80), color='red', linewidth=2, linestyle = '-')
-        axes[i, j].plot([i for i in range(200)], PuasDes([i for i in range(200)], sig80), color='magenta', linewidth=2, linestyle = '--')
-        axes[i, j].plot([i for i in range(200)], Gauss([i for i in range(200)], sr80, sig80), color='cyan', linewidth=3, linestyle = ':')
+        n, bins, patches = axes[i, j].hist(l80, s, density=True, facecolor='blue', edgecolor='black', alpha=0.75)
+        axes[i, j].plot([i for i in range(130)], PuasSr([i for i in range(130)], sr80), color='red', linewidth=2, linestyle = '-')
+        axes[i, j].plot([i for i in range(130)], PuasDes([i for i in range(130)], sig80), color='magenta', linewidth=2, linestyle = '--')
+        axes[i, j].plot([i for i in range(130)], Gauss([i for i in range(130)], sr80, sig80), color='cyan', linewidth=3, linestyle = ':')
         axes[i, j].grid(True)
-        axes[i, j].axis([np.min(l80)-10, np.max(l80)+10, 0, sizes[i][j] ])
+        axes[i, j].axis([np.min(l80)-5, np.max(l80)+3, 0, sizes[i][j] ])
         axes[i, j].set_xlabel('Число отсчетов, шт.')
         axes[i, j].set_ylabel('Вероятность события')
         axes[i, j].set_title(f'Распределение числа отсчетов при \n t = {t[i][j]} секунд.')
@@ -89,15 +94,16 @@ for i in range(2):
     for j in range(2):
         l80 = hoba(t[i][j])
         sr80 = np.sum(l80)/len(l80)
+        luniq = set(l80)
+        s = len(luniq)
 
-        n, bins, patches = plt.hist(l80, 30, density=True, facecolor=colors[i][j], edgecolor='black', alpha=0.75)
+        n, bins, patches = plt.hist(l80, s, density=True, facecolor=colors[i][j], edgecolor='black', alpha=0.75)
         plt.plot([i for i in range(130)], PuasSr([i for i in range(130)], sr80), color='red', linewidth=3)
         plt.xlabel('Число отсчетов, шт.')
         plt.ylabel('Вероятность события')
         plt.title('Распределение числа отсчетов при различных t.')
         plt.grid(True)
-        plt.axis([0, 120, 0, 0.22])
-
+        plt.axis([0, 120, 0, 0.15])
 
 plt.show()
 
