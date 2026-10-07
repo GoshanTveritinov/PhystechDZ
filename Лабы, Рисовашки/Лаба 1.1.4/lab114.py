@@ -57,30 +57,45 @@ fig, axes = plt.subplots(nrows = 2, ncols = 2, figsize=(14, 8))
 plt.subplots_adjust(wspace=0.5, hspace=0.5)
 for i in range(2):
     for j in range(2):
-        l80 = hoba(t[i][j])
-        luniq = set(l80)
+        l = hoba(t[i][j])
+        luniq = set(l)
         s = len(luniq)
-        sr80 = np.sum(l80)/len(l80)
+        sr80 = np.sum(l)/len(l)
         int80 = sr80/t[i][j]
-        sig80, sint80 = sigma(l80, sr80, t[i][j]) 
+        sig80, sint80 = sigma(l, sr80, t[i][j]) 
+        g = {}
+        for a in range(len(l)):
+            if l[a] in g:
+                g[l[a]] = g[l[a]] + 1
+            else:
+                g[l[a]] = 1 
+
+        summury = 0
+        for k in g.keys():
+            summury += g[k]
+
+        for q in g.keys():
+            g[q] = round(g[q]/summury, 3) 
+
 
         print(f"Отчет для t = {t[i][j]}:")
         print("Среднее число рег. частиц:", sr80)
         print("Стандартное отклонение:", round(sig80, 4))
         print("Погрешность среднего значения:", round((sr80/6000)**0.5, 4) )
         print("Средняя интенсивность:", int80)
-        print("Среднее отклонение (погрешность) интенсивности:", round(sint80, 4))
+        print("Стандартное отклонение (погрешность) интенсивности:", round(sint80, 4))
+        print(dict(sorted(g.items())))
         print()
 
         
      
 
-        n, bins, patches = axes[i, j].hist(l80, s, density=True, facecolor='blue', edgecolor='black', alpha=0.75)
+        n, bins, patches = axes[i, j].hist(l, s, density=True, facecolor='blue', edgecolor='black', alpha=0.75)
         axes[i, j].plot([i for i in range(130)], PuasSr([i for i in range(130)], sr80), color='red', linewidth=2, linestyle = '-')
         axes[i, j].plot([i for i in range(130)], PuasDes([i for i in range(130)], sig80), color='magenta', linewidth=2, linestyle = '--')
         axes[i, j].plot([i for i in range(130)], Gauss([i for i in range(130)], sr80, sig80), color='cyan', linewidth=3, linestyle = ':')
         axes[i, j].grid(True)
-        axes[i, j].axis([np.min(l80)-5, np.max(l80)+3, 0, sizes[i][j] ])
+        axes[i, j].axis([np.min(l)-5, np.max(l)+3, 0, sizes[i][j] ])
         axes[i, j].set_xlabel('Число отсчетов, шт.')
         axes[i, j].set_ylabel('Вероятность события')
         axes[i, j].set_title(f'Распределение числа отсчетов при \n t = {t[i][j]} секунд.')
@@ -92,12 +107,12 @@ fig, ax = plt.subplots(figsize=(15, 7))
 colors = np.array([['cyan', 'blue'], ['green', 'magenta']])
 for i in range(2):
     for j in range(2):
-        l80 = hoba(t[i][j])
-        sr80 = np.sum(l80)/len(l80)
-        luniq = set(l80)
+        l = hoba(t[i][j])
+        sr80 = np.sum(l)/len(l)
+        luniq = set(l)
         s = len(luniq)
 
-        n, bins, patches = plt.hist(l80, s, density=True, facecolor=colors[i][j], edgecolor='black', alpha=0.75)
+        n, bins, patches = plt.hist(l, s, density=True, facecolor=colors[i][j], edgecolor='black', alpha=0.75)
         plt.plot([i for i in range(130)], PuasSr([i for i in range(130)], sr80), color='red', linewidth=3)
         plt.xlabel('Число отсчетов, шт.')
         plt.ylabel('Вероятность события')
