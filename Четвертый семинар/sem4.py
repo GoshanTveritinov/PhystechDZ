@@ -1,2 +1,3 @@
-for i in range(4):
-    print(i, )
+l = "qwertyuiop"
+
+print(l[2])
