@@ -23,21 +23,46 @@ for genre in complex_genres:
     film_genres_list.remove(genre)
     
 genres_set = set(film_genres_list) 
-#print(film_genres_list)
-#print(genres_set)
 FilmsAndGenres = {}
 for i in range(len(films)):
     FilmsAndGenres[films['Title'][i]] = films['Genre'][i].split(' | ')
-print(FilmsAndGenres)
 
-choose_genre = input()
-if choose_genre in genres_set:
-    randomgenre = ""
-    while choose_genre not in randomgenre:
-        randomfilm = choice(list(films['Title']))
-        randomgenre = FilmsAndGenres[randomfilm]
-        print(randomgenre)
-    print("Итог: ", randomfilm)
-else:
-    print("Такого жанра не существует")
 
+def find_film(*args):
+    choose_genre = cur_genre.get()
+    if choose_genre in genres_set:
+        randomgenre = ""
+        while choose_genre not in randomgenre:
+            randomfilm = choice(list(films['Title']))
+            randomgenre = FilmsAndGenres[randomfilm]
+        film.set(f'Попробуйте "{randomfilm}" ')
+    elif choose_genre == "":
+        film.set("Ждем ваш выбор")
+    else:
+        film.set("Такого жанра не существует")
+
+root = Tk()
+root.geometry("350x100")
+root.title("Фильмотека")
+
+mainframe = ttk.Frame(root, padding="10 10 12 12")
+mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=1)
+
+cur_genre = StringVar()
+cg_entry = ttk.Entry(mainframe, width=20, textvariable=cur_genre)
+cg_entry.grid(column=1, row=1, sticky=(E))
+
+film = StringVar()
+ttk.Label(mainframe, textvariable=film).grid(column=1, row=3, sticky=(W, E))
+ttk.Button(mainframe, text="Подобрать", command=find_film).grid(column=3, row=3, sticky=W)
+
+ttk.Label(mainframe, text="Введите жанр").grid(column=3, row=1, sticky=W)
+
+# этот цикл позволяет "разбросать" элементы подальше друг от друга
+for child in mainframe.winfo_children(): 
+    child.grid_configure(padx=5, pady=5)
+
+root.bind("<Return>", find_film)
+root.mainloop()
