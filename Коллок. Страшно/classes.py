@@ -1,4 +1,6 @@
-class Stack:
+#Пятый билет
+
+class Stack: #Первый зашел последний вышел
     def __init__(self):
         self.stack = []
 
@@ -11,12 +13,12 @@ class Stack:
 from collections import deque
 
 
-class Node:
+class Node:  #Узел для односвязных списков
     def __init__(self, val = None):
         self.val = val
         self.next = None
 
-class LinkedList:
+class LinkedList: # 
     def __init__(self):
         self.head = None
         self.len = 0
