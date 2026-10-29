@@ -103,7 +103,6 @@ def backpack(weights, values, capacity):
             # Вариант 2: взять, если хватает вместимости.
             if weight <= c:
                 candidate = value + dp[i - 1][c - weight]
-                print(candidate)
                 dp[i][c] = max(dp[i][c], candidate)
 
     # Восстановление одного из оптимальных наборов.
@@ -114,15 +113,15 @@ def backpack(weights, values, capacity):
             selected.append(i)
             c -= weights[i - 1]
     selected.reverse()
-    return dp#[n][capacity], selected
+    return dp[n][capacity], selected
 weights = [1, 3, 4, 5]
 values = [1, 4, 5, 7]
 capacity = 7
-'''
+
 best_value, selected = backpack(weights, values, capacity)
 total_weight = sum(weights[i - 1] for i in selected)
 print("Максимальная стоимость:", best_value)
 print("Номера предметов:", selected)
 print("Общий вес:", total_weight)
-'''
-print(np.array(backpack(weights, values, capacity)))
+
+#print(np.array(backpack(weights, values, capacity)))
