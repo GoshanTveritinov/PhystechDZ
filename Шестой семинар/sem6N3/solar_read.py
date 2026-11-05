@@ -62,6 +62,7 @@ def parse_star_parameters(line, star):
     star.Vy = float(tokens[7])
 
 
+
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
     Входная строка должна иметь следующий формат:

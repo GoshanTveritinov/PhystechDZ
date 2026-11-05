@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.special import factorial
 
 # Рассчет отклонений стандартного и среднего
 def sigma(a):
@@ -8,7 +7,6 @@ def sigma(a):
     sigst = ( np.sum( (a-sr)**2 ) / (len(a)-1) ) **0.5
     sigsr = (sigst / (len(a)**0.5))
     return float(round(sr, 4)), float(round(sigst, 4)), float(round(sigsr, 4))
- 
 
 def nn(n):
     nn = []
@@ -70,5 +68,6 @@ p1 = round(p[1], 3)
 p2 = round(p[0], 3)
 print(round(p[1], 3), round(p[0], 3))
 plt.plot(hh, p(hh), color = 'red', label = 'I = 0.131*$h^2 $ + 9.34')
+
 plt.legend(loc='lower right')
 plt.show()

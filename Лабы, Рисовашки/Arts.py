@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import matplotlib.ticker as ticker
 mpl.rcParams['font.size'] = 20 # Управление стилем, в данном случаем - размером шрифта 
- # Создаем фигуру
+# Создаем фигуру
 fig, ax = plt.subplots(figsize=(12, 10))
 
 

@@ -93,33 +93,39 @@ def calculate_force(body, space_objects):
     **space_objects** — список объектов, которые воздействуют на тело.
     """
 
-    body.Fx = body.Fy = 0
     for obj in space_objects:
         if body == obj:
-            body.Fx = 0.1
-            body.Fy = 0.1
-        r = randint(1,100)/100
-        body.Fx += -randint(1,100)/100
-        body.Fy += -randint(1,100)/100
+            body.Fx += 0
+            body.Fy += 0
+        else:
+            r = ( (body.x - obj.x)**2 + (body.y - obj.y)**2 )**0.5
+            body.Fx += - (gravitational_constant * body.m * obj.m) * ( body.x - obj.x ) / (r)**3
+            body.Fy += - (gravitational_constant * body.m * obj.m) * ( body.y - obj.y ) / (r)**3
+            
+
+        #r = randint(1,100)/100
+        #body.Fx += -randint(1,100)/100
+        #body.Fy += -randint(1,100)/100
 
 
 def move_space_object(body, dt):
     """Перемещает тело в соответствии с действующей на него силой.
 
+    
     Параметры:
 
     **body** — тело, которое нужно переместить.
     """
 
-    ax = body.Fx / body.m
-    body.x = body.x + dt * body.Vx + (dt**2 /2) * ax 
-    body.Vx = body.Vx + dt * ax
+    body.ax = body.Fx / body.m
+    body.x += dt * body.Vx + (dt**2 /2) * body.ax 
+    body.Vx += dt * body.ax
     
-    ay = body.Fy / body.m
-    body.y += body.y + dt * body.Vy + (dt**2 /2) * ay
-    body.Vy += body.Vy + dt * ay
-
-
+    body.ay = body.Fy / body.m
+    body.y += dt * body.Vy + (dt**2 /2) * body.ay
+    body.Vy += dt * body.ay
+    #print(body.x, body.y)
+# body.ax, body.ay, , body.Vx, body.Vy
     '''zhitь ( ͡ಥ ͜ʖ ͡ಥ)'''
     #Я тоже не знаю, но ща че-нить накалякаем  >=]
 
