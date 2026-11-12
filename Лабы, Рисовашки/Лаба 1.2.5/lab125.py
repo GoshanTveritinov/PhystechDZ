@@ -131,7 +131,7 @@ for mn in m:
 
 fig, ax = plt.subplots(figsize=(8, 6))
 
-plt.title(r"Измерение сопротивления проволоки")
+plt.title("Зависимость $\\Omega (M)$ ")
 plt.ylabel("$\\Omega$, м/с")
 plt.xlabel(r"$M$, Н*м")
 # ax.yaxis.set_major_locator(ticker.MultipleLocator(base=100))
@@ -159,13 +159,35 @@ for i in range(len(O)):
     plt.scatter(O[i], M[i], marker="s", color = colors[i], label = f"{i+1} эксперимент")
     #plt.errorbar(a[i], b[i], yerr=3.75, color = "black", capsize = 8)
 
-
-plt.legend(loc='lower right')     
-#plt.show()
-
-
-
 T0 = [3.17, 3.16, 3.19, 3.19, 3.18]
 print("Погрешность T0: ", sigma(T0, 0.3))
 Tc = [4.00, 4.01, 4.02, 4.03, 4.01]
 print("Погрешность Tc: ", sigma(Tc, 0.3))
+
+def Mftp(Ti, dli):
+    k = 520*10**(-3)
+    dfi = []
+    Opadi = []
+    for j in range(len(Ti)):
+        dfi += [dli[j]*10 / 119]
+    for k in range(len(Ti)):
+        Opadi += [dfi[j]/Ti[j]]
+    Opadsr = sigma(Opadi, 0)
+    Mi = Opadsr[0] * k
+    return round(Mi, 4)
+
+dl1 = [1.5, 1.7, 1.8, 2]
+dl2 = [1.2, 1.3, 1.4, 1.3]
+dl3 = [1.1, 1, 0.9, 1]
+dl4 = [1.3, 1.4, 1.2, 1.2]
+dl5 = [1.1, 0.9, 0.8, 0.9]
+dl6 = [1.2, 1.3, 1.5, 1.2]
+dl7 = [1.1, 1.3, 1.1, 1.1]
+
+print(Mftp(T1, dl1), Mftp(T2, dl2), Mftp(T3, dl3), Mftp(T4, dl4), Mftp(T5, dl5), Mftp(T6, dl6), Mftp(T7, dl7)   )
+
+#for t in T:
+#    print(0.3 / min(t) * 100)
+
+plt.legend(loc='lower right')     
+ plt.show()
