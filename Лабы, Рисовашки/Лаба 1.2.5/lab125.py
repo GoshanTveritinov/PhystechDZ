@@ -190,4 +190,4 @@ print(Mftp(T1, dl1), Mftp(T2, dl2), Mftp(T3, dl3), Mftp(T4, dl4), Mftp(T5, dl5),
 #    print(0.3 / min(t) * 100)
 
 plt.legend(loc='lower right')     
- plt.show()
+plt.show()
