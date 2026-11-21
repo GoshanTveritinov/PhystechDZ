@@ -1,5 +1,3 @@
-
-`
 class Node:
     def __init__(self, value):
         self.value = value
@@ -146,4 +144,3 @@ class AVLTree:
 
     def delete(self, value):
         self.root = self._delete(self.root, value)
---

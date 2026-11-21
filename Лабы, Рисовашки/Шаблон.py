@@ -30,6 +30,8 @@ def pog1(x, y, pogx, pogy):
     xy = xy/len(x)
     yy = yy/len(x)
     xx = xx/len(x)
+    
+    #R1 - значение отношения по МНК
     R1 = xy/yy
     print("(X/Y)ср =", round(R1, 3))
  
@@ -50,8 +52,9 @@ def pog1(x, y, pogx, pogy):
     blokofpog = [R1, F1, G1, Q1]
 
 #МНК для прямой с коэфом и ее погрешности
-def pog2(x, y):
+def pog2(y, x):  #Сначала все равно писать то, что по Ох, потом по Оу
     # y = bx + a
+    print("При y = bx + a:")
     xy = 0
     yy = 0
     xx = 0
@@ -110,18 +113,20 @@ plt.title(r"Измерение сопротивления проволоки")
 plt.ylabel("$V_B$, мВ")
 plt.xlabel(r"$I_A$, мА")
 #ax.yaxis.set_major_locator(ticker.MultipleLocator(base=100))
-ax.yaxis.set_minor_locator(ticker.MultipleLocator(base=20))
+#ax.yaxis.set_minor_locator(ticker.MultipleLocator(base=20))
 #ax.yaxis.set_major_locator(ticker.MultipleLocator(base=100))
-ax.xaxis.set_minor_locator(ticker.MultipleLocator(base=10))
+#ax.xaxis.set_minor_locator(ticker.MultipleLocator(base=10))
 ax.spines['left'].set_position('zero')  
 ax.spines['bottom'].set_position('zero')  
 ax.set_xlim(0, 400)
 ax.set_ylim(0, 800)
 
 for i in range(len(a)):
-    plt.plot(a[i], b[i], marker="s", color = "green")
+    plt.plot(a[i], b[i], marker="s", color = "green", markersize = 5)
     #plt.errorbar(a[i], b[i], yerr=3.75, color = "black", capsize = 8)
 ax.scatter(a[0], b[0], marker="s", color = "green", label = "$l = 50$ см, \n$k = 5.145 \pm 0.029$ Ом")
+
+
 
 #plt.legend(loc='lower right')       plt.show()
 

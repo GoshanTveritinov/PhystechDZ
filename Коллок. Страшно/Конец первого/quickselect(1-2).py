@@ -17,11 +17,10 @@ def partition(a, low, high):
             gt -= 1
         else:
             i += 1
-        print(pivot, a)
     return lt, gt
 
 
-def quicksort(a, k):
+def quickselct(a, k):
     def select(low, high):
         if low == high:
             return a[low]
@@ -42,3 +41,5 @@ def quicksort(a, k):
 
 a = [7, 2, 9, 4, 1, 8, 3, 5, 6]
 print(partition(a, 0, len(a)-1))
+
+print(quickselct(a, 4))
