@@ -104,8 +104,8 @@ axes[0].set_ylabel("$n$, номер гармоники")
 axes[0].set_xlabel(r"$\nu$, Гц")
 #ax.spines['left'].set_position('zero')  
 #ax.spines['bottom'].set_position('zero')  
-axes[0].set_xlim(0, 2000)
-axes[0].set_ylim(0, 8.5)
+axes[0].set_xlim(0, 2200)
+axes[0].set_ylim(0, 10)
 
 
 
@@ -121,7 +121,7 @@ for n in N:
     u = round(blokofpog[0]*2*0.5, 1)
     e = round(blokofpog[1] / blokofpog[0] * 100, 3)
     print([round(blokofpog[0], 1), u, round(blokofpog[3], 1), e])
-    x = np.linspace(0, 2500)
+    x = np.linspace(0, n[8] + 100)
     y = x/u
     axes[0].plot(x, y, color = "black")
 
@@ -135,12 +135,12 @@ for n in N:
 
 
 
-axes[1].set_title(r"Зависимость квадрата скорости распространения от силы натяжения")
+axes[1].set_title(r"Зависимость квадрата скорости распространения волны от силы натяжения")
 axes[1].set_ylabel("$T$, Н")
 axes[1].set_xlabel(r"$u^2, 10^4$ м/с ")
 #ax.spines['left'].set_position('zero')  
 #ax.spines['bottom'].set_position('zero')  
-axes[1].set_xlim(0, 6)
+axes[1].set_xlim(0, 5.7)
 axes[1].set_ylim(0, 32)
 
 u = [132.9, 162.0, 186.1, 205.9, 223.3]
@@ -150,7 +150,7 @@ print("")
 print(uu)
 
 pog1(T, uu, 0.6, 0.042)
-x1 = np.linspace(1.5, 6)
+x1 = np.linspace(1.5, 5.3)
 x2 = np.linspace(0, 1.5)
 y1 = blokofpog[0] * x1
 y2 = blokofpog[0] * x2
@@ -158,11 +158,12 @@ plt.plot(x1, y1, linestyle = "-", color = "black")
 plt.plot(x2, y2, linestyle = "--", color = "black")
 
 for i in range(len(uu)):
-    axes[1].scatter(uu[i], T[i], marker = "s", color = "black")
+    axes[1].scatter(uu[i], T[i], marker = "s", color = colors[i], label = f"{i+1}-ый экспермент.")
     axes[1].errorbar(uu[i], T[i], yerr=0.6, xerr = 0.042, color = "black", capsize = 1)
 
     
 axes[0].legend(loc='lower right')      
+axes[1].legend(loc='lower right')
 plt.show()
 
 
